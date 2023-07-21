@@ -1,4 +1,4 @@
-# Build :  pyinstaller .\Conv_v1.3.2.py --noupx -c --onefile
+# Build :  pyinstaller .\ModelaPlayer4toCandle-converter.py --noupx -c --onefile
 
 import re
 import sys
