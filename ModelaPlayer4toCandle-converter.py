@@ -1,4 +1,4 @@
-# Build :  pyinstaller .\ModelaPlayer4toCandle-converter.py --noupx -c --onefile
+# Build :  pyinstaller .\Conv_v1.3.2.py --noupx -c --onefile
 
 import re
 import sys
@@ -31,11 +31,12 @@ def Conversion(file_in):
                 result = re.findall(r'F5100\.?\d+', text)
                 if len(result) != 0: #F5100があった
                     text = text.replace(result[0],'') #行を抹消
-                if re.search(r'G28', text): #G28があった
+                if re.search(r'G28', text) or re.search(r'G01', text): #G28 or G01があった
                     text = text.replace(text,'') #行を抹消
                 if re.search(r'%', text) and start != 0: #Z10G91G30を付加
                     text = text.replace(text,'Z10\nG91G30\n%')
-                if re.search(r'%', text): #スタート記号確認
+                elif re.search(r'%', text) and start == 0: #最初の%を削除
+                    text = text.replace(text,'') #行を抹消
                     start = 1
 
                 #################################################
