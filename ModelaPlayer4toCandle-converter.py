@@ -1,11 +1,20 @@
+# Build :  pyinstaller .\ModelaPlayer4toCandle-converter.py --noupx -c --onefile
+
 import re
 import sys
+import os
 
 def Conversion(file_in):
-    file_out = "Conv_"+file_in
+    directory = os.path.dirname(file_in)
+    directory += "\\"
+    filename = os.path.basename(file_in)
+    file_out = directory+"Conv_"+filename
+    print("Import File :",file_in)
+    print("Export File :",file_out)
     out_data = ""
 
     with open(file_in, 'r') as f_in:
+        start = 0
         while True:
             text = f_in.readline()
             if text:
@@ -14,19 +23,38 @@ def Conversion(file_in):
                     for val in result:
                         mozi = val[0]
                         suuti = float(val[1:])
-                        suuti_str =str(suuti /1000.0)
+                        if mozi == 'Z' and suuti == 155: #数値の例外処理
+                            suuti_str = str(10.0)
+                        else:
+                            suuti_str =str(suuti /1000.0)
                         text = text.replace(val,mozi+suuti_str)
-                out_data = out_data+text
+                result = re.findall(r'F5100\.?\d+', text)
+                if len(result) != 0: #F5100があった
+                    text = text.replace(result[0],'') #行を抹消
+                if re.search(r'G28', text): #G28があった
+                    text = text.replace(text,'') #行を抹消
+                if re.search(r'%', text) and start != 0: #Z10G91G30を付加
+                    text = text.replace(text,'Z10\nG91G30\n%')
+                if re.search(r'%', text): #スタート記号確認
+                    start = 1
+
+                #################################################
+                if re.match(r"\n", text): #改行文字のみの行を検索
+                    print("空白行除去")
+                else:
+                    out_data = out_data+text
+                #################################################
             else:
                 break
     with open(file_out, 'w') as f_out:
         f_out.write(out_data)
         print("Write End.")
-        print("File Name:"+file_out)
 
 if __name__ == '__main__':
     args = sys.argv
     if 2 <= len(args):
+        args[1] = args[1].replace('"','')
         Conversion(args[1])
     else:
         print('Arguments are too short')
+    os.system('PAUSE')
