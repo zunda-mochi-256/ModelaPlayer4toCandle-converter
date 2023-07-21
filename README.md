@@ -8,4 +8,4 @@ pyinstaller .\ModelaPlayer4toCandle-converter.py --noupx -c --onefile
 ~~~
 
 Windows 64bit用
-https://github.com/zunda-mochi-256/ModelaPlayer4toCandle-converter/blob/dist/ModelaPlayer4toCandle-converter.exe
+https://github.com/zunda-mochi-256/ModelaPlayer4toCandle-converter/blob/main/dist/ModelaPlayer4toCandle-converter.exe
