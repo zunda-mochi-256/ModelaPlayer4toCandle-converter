@@ -22,7 +22,6 @@ def Conversion(file_in):
                 result = re.findall(r'^Z1000$', text) #RapidSpeedSupport 
                 if len(result) != 0: #Z1000の上にF1000を追加
                     text = text.replace(result[0],'F1000\n'+result[0])
-                    print(text)
                 result = re.findall(r'[XYZ]-?\d+', text)
                 if len(result) != 0: #x or y or zがあった
                     for val in result:
@@ -46,7 +45,6 @@ def Conversion(file_in):
 
                 #################################################
                 if re.match(r"\n", text): #改行文字のみの行を検索
-                    # print("空白行除去")
                     print()
                 else:
                     out_data = out_data+text
