@@ -1,0 +1,2 @@
+# ModelaPlayer4toCandle-converter
+ローランド社のCAMソフトであるモデラプレイヤー4というソフトで出力したGコードをcandle等の汎用CNC制御ソフトで扱えるようにするためのGコードコンバータです。
