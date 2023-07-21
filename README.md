@@ -4,5 +4,5 @@
 ドラッグアンドドロップでファイルを読み込み元のファイルと同じ場所に変換後のファイルを出力します。
 exe化して実行してください。
 ~~~ python:powershell
-# Build :  pyinstaller .\ModelaPlayer4toCandle-converter.py --noupx -c --onefile
+pyinstaller .\ModelaPlayer4toCandle-converter.py --noupx -c --onefile
 ~~~
