@@ -12,7 +12,7 @@ def Conversion(file_in):
     file_out = directory+"Conv_"+filename
     print("Import File :",file_in)
     print("Export File :",file_out)
-    out_data = ""
+    out_data = "G90G00G54X0Y0\nF500\n"
 
     with open(file_in, 'r') as f_in:
         start = 0
@@ -27,7 +27,7 @@ def Conversion(file_in):
                     for val in result:
                         mozi = val[0]
                         suuti = float(val[1:])
-                        if mozi == 'Z' and suuti == 155: #数値の例外処理
+                        if mozi == 'Z' and (suuti == 155 or suuti == 155000): #数値の例外処理
                             suuti_str = str(10.0)
                         else:
                             suuti_str =str(suuti /1000.0)
